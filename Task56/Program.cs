@@ -13,7 +13,7 @@ int matrY = ReadData("Введите размер N ");
 int[,] matrix = new int[matrX, matrY];
 void PrintArray(int[,] matr)
 {
-    for (int i = 0; i < matr.GetLength(0); i++) 
+    for (int i = 0; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
         {
@@ -22,7 +22,6 @@ void PrintArray(int[,] matr)
         Console.WriteLine();
     }
 }
-
 
 int ReadData(string msg)
 {
@@ -35,25 +34,33 @@ void FillArray(int[,] matrix)
 {
     for (int i = 0; i < matrX; i++)
     {
-      for (int j = 0; j < matrY; j++)
-        matrix [i,j] = new Random().Next(0,100);
+        for (int j = 0; j < matrY; j++)
+            matrix[i, j] = new Random().Next(1, 10);
     }
 }
 
-void collumMin(int[,]matrix)
+int collumMin(int[,] matrix)
 {
+    int indexMinSum = 0;
     
-    for (int i = 0; i < matrix.GetLength(0)-1; i++)
+    int sumMin = int.MaxValue;
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        int sum = 0;
         
+        int sum = 0;
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            sum = sum + matrix[j,i];  
-        }
+            sum = sum + matrix[i, j];
         
+        if (sum < sumMin)
+        {
+            sumMin = sum;
+            indexMinSum = i + 1;
+        }
+        }
     }
+    return indexMinSum;
 }
 FillArray(matrix);
 PrintArray(matrix);
-collumMin(matrix);
+Console.WriteLine($"В {collumMin(matrix)} столбце минимальная сумма чисел");
